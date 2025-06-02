@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Happy Birthday Victoria 🎉</title>
+  <link rel="icon" type="image/png" href="https://cdn-icons-png.flaticon.com/512/869/869869.png">
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@600;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      font-family: 'Quicksand', sans-serif;
+      background: linear-gradient(135deg, #828b4f, #046b79, rgb(151, 145, 145));
+      color: #ffffff;
+      line-height: 1.6;
+      overflow-x: hidden;
+      position: relative;
+      min-height: 100vh;
+    }
+
+    #heart-container {
+      position: fixed;
+      left: 0;
+      top: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      z-index: 999;
+    }
+    .heart {
+      position: absolute;
+      width: 28px;
+      height: 28px;
+      background: url('https://cdn-icons-png.flaticon.com/512/833/833472.png') no-repeat center/contain;
+      opacity: 0.9;
+      z-index: 999;
+      pointer-events: none;
+      will-change: transform, opacity;
+    }
+
+    #splash {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: linear-gradient(135deg, #ffd5ec, #c3f8ff);
+      z-index: 9999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      animation: fadeIn 1.5s ease forwards;
+      transition: opacity 1.3s;
+    }
+
+    #splash-inner {
+      background: rgba(255,255,255,0.97);
+      border-radius: 22px;
+      box-shadow: 0 10px 54px 0 #0002;
+      padding: 2.5rem 2.3rem 2.2rem 2.3rem;
+      text-align: center;
+      min-width: 300px; max-width: 90vw;
+      animation: popIn 1.6s cubic-bezier(.25,1.7,.5,.8);
+    }
+    #splash h2 {
+      font-size: 2rem;
+      color: #5f2c82;
+      margin-bottom: 0.7em;
+      letter-spacing: 1px;
+    }
+    .splash-form label {
+      font-weight: bold; color: #5f2c82;
+      margin: 1.3em 0 0.22em 0; text-align: left; display: block;
+    }
+    .splash-form input {
+      width: 100%; font-size: 1.1rem; border-radius: 9px;
+      padding: 0.55em 0.7em; outline: none;
+      border: 1.5px solid #b88700;
+      background: #f9f6e4;
+      margin-bottom: 0.1em;
+      transition: border 0.2s;
+    }
+    .splash-form input:focus { border-color: #5f2c82; }
+    .splash-form button {
+      margin-top: 1.5em; font-size: 1.1rem;
+      background: linear-gradient(90deg,#b88700,#5f2c82 80%);
+      color: #fff; border:none; padding:0.7em 2em;
+      border-radius: 20px; cursor:pointer;
+      box-shadow: 0 2px 10px #0001;
+      font-weight: 700;
+      letter-spacing: 1px;
+      transition: background 0.2s;
+    }
+    .splash-form button:hover { background:linear-gradient(90deg,#5f2c82 10%,#b88700 90%);}
+    .splash-error {
+      color: #d92c2c;
+      margin-top: 1.2em;
+      font-weight: 600;
+      font-size: 1.1rem;
+      min-height: 1.5em;
+      letter-spacing: 0.5px;
+    }
+
+    #main-content {
+      max-width: 700px;
+      margin: 0 auto;
+      margin-top: 6.5rem;
+      padding: 2.8rem 2rem 2rem 2rem;
+      background: rgba(0,0,0,0.16);
+      border-radius: 32px;
+      box-shadow: 0 8px 48px #0002, 0 2px 12px #5f2c8220;
+      text-align: center;
+      opacity: 0;
+      transition: opacity 1.5s ease;
+      position: relative;
+      z-index: 1;
+      min-height: 440px;
+    }
+
+    #main-content.visible {
+      opacity: 1;
+    }
+
+    #main-content h1 {
+      font-size: 2rem;
+      color: #b88700;
+      margin-bottom: 1rem;
+      letter-spacing: 1.2px;
+      text-shadow: 0 2px 0 #fff4, 0 6px 18px #b8870055;
+    }
+
+    #message-body {
+      margin-bottom: 2rem;
+      min-height: 160px;
+      font-size: 1.13rem;
+      color: #fff;
+      text-align: left;
+      line-height: 1.7;
+      font-family: 'Quicksand', sans-serif;
+      white-space: pre-line;
+    }
+    .typing-cursor {
+      display: inline-block;
+      width: 16px;
+      color: #b88700;
+      animation: blink 1s steps(1) infinite;
+      font-weight: bold;
+    }
+    @keyframes blink {
+      0%, 100% { opacity: 1;}
+      50% { opacity: 0;}
+    }
+
+    #reveal-btn {
+      margin-top: 1.5rem;
+      background: #b88700;
+      color: white;
+      border: none;
+      border-radius: 30px;
+      padding: 0.8rem 1.5rem;
+      font-size: 1rem;
+      font-weight: bold;
+      letter-spacing: 0.7px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    #reveal-btn:hover {
+      background: #b48605c7;
+    }
+
+    #popup-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0, 0, 0, 0.6);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 10000;
+    }
+
+    #video-popup {
+      background: white;
+      border-radius: 15px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+      width: 390px;
+      height: 844px;
+      max-width: 90vw;
+      max-height: 90vh;
+      display: none;
+      flex-direction: column;
+      position: relative;
+    }
+
+    #birthday-video {
+      width: 100%;
+      height: 100%;
+      border-radius: 15px;
+      cursor: pointer;
+      background: black;
+    }
+
+    #close-popup {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: #5f2c82;
+      border: none;
+      color: white;
+      border-radius: 50%;
+      width: 30px;
+      height: 30px;
+      font-weight: bold;
+      font-size: 1.2rem;
+      cursor: pointer;
+      z-index: 10001;
+    }
+
+    .comment-popup {
+      position: absolute;
+      top: 10%;
+      right: 5%;
+      background: #ffffffee;
+      border-radius: 12px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+      padding: 1rem;
+      max-width: 250px;
+      z-index: 10;
+      font-size: 0.95rem;
+      color: #333;
+      animation: fadeCommentIn 1s ease forwards;
+      display: none;
+    }
+
+    @keyframes fadeCommentIn {
+      0% {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+
+      to {
+        opacity: 1;
+      }
+    }
+
+    @keyframes fadeOut {
+      from {
+        opacity: 1;
+      }
+
+      to {
+        opacity: 0;
+      }
+    }
+
+    @keyframes popIn {
+      from {
+        transform: scale(0.8);
+        opacity: 0;
+      }
+      to {
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div id="heart-container"></div>
+
+  <!-- Splash Screen -->
+  <div id="splash">
+    <div id="splash-inner">
+      <h2>It's your day again... after a whole year 🎉</h2>
+      <form class="splash-form" id="splash-form" autocomplete="off">
+        <label for="name">Your first name</label>
+        <input type="text" id="name" name="name" placeholder="First name..." required autocomplete="off" />
+        <label for="dob">Date of Birth</label>
+        <input type="date" id="dob" name="dob" required autocomplete="off" />
+        <label for="age">How old today?</label>
+        <input type="number" id="age" name="age" min="1" max="150" required autocomplete="off" placeholder="e.g., 22"/>
+        <button type="submit">Start</button>
+        <div class="splash-error" id="splash-error"></div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Audio element, hidden -->
+  <audio id="splash-audio" src="splash_music.mp3" preload="auto"></audio>
+
+  <!-- Main Content -->
+  <div id="main-content">
+    <h1>🎉 Happy Birthday, Fadare Oluwaseun Victoria 🎂</h1>
+    <div id="message-body"></div>
+    <button id="reveal-btn" style="display:none;">Click Me 🎁</button>
+  </div>
+
+  <!-- Popup for video -->
+  <div id="popup-overlay">
+    <div id="video-popup">
+      <button id="close-popup" title="Close popup">&times;</button>
+      <video id="birthday-video" playsinline>
+        <source src="happy_birthday_video.mp4" type="video/mp4" />
+        Your browser does not support the video tag.
+      </video>
+
+      <div id="video-comment" class="comment-popup">
+        Don't mind the Voice, I can sing better now😂
+      </div>
+      <div id="video-comment1" class="comment-popup">
+        The pa pa pa sound, is the sustain pedal for the keyboard
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Celebrant's info
+    const CELEBRANT = {
+      name: "Victoria",
+      dob: "2004-06-21", // yyyy-mm-dd
+      age: 21
+    };
+
+    function normalizeName(str) {
+      return (str || "").trim().toLowerCase();
+    }
+    function sameDate(val1, val2) {
+      return val1 === val2;
+    }
+
+    const splash = document.getElementById('splash');
+    const splashForm = document.getElementById('splash-form');
+    const splashError = document.getElementById('splash-error');
+    const mainContent = document.getElementById('main-content');
+    const splashAudio = document.getElementById('splash-audio');
+    const revealBtn = document.getElementById('reveal-btn');
+    const popupOverlay = document.getElementById('popup-overlay');
+    const videoPopup = document.getElementById('video-popup');
+    const birthdayVideo = document.getElementById('birthday-video');
+    const closePopup = document.getElementById('close-popup');
+    const messageBody = document.getElementById('message-body');
+    let audioShouldPlay = false;
+
+    splashForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      splashError.textContent = "";
+      const name = normalizeName(splashForm.name.value);
+      const dob = splashForm.dob.value;
+      const age = parseInt(splashForm.age.value, 10);
+      if (
+        name === normalizeName(CELEBRANT.name) &&
+        sameDate(dob, CELEBRANT.dob) &&
+        age === CELEBRANT.age
+      ) {
+        startExperience();
+      } else {
+        splashError.textContent = "Are you sure you're the celebrant? 😉 Try again!";
+      }
+    });
+    splashForm.addEventListener('keyup', function(e){
+      if (e.key === "Enter") splashForm.dispatchEvent(new Event('submit'));
+    });
+
+    function fadeAudioTo(target, duration = 700) {
+      if (!audioShouldPlay) return;
+      const start = splashAudio.volume;
+      const diff = target - start;
+      if (diff === 0) return;
+      const steps = 18;
+      let i = 0;
+      const interval = duration/steps;
+      const stepSize = diff/steps;
+      function doStep() {
+        splashAudio.volume = +(splashAudio.volume + stepSize).toFixed(3);
+        i++;
+        if ((stepSize > 0 && splashAudio.volume >= target) ||
+            (stepSize < 0 && splashAudio.volume <= target) ||
+            i >= steps) {
+          splashAudio.volume = target;
+          return;
+        }
+        setTimeout(doStep, interval);
+      }
+      doStep();
+    }
+
+    function startExperience() {
+      audioShouldPlay = true;
+      splashAudio.volume = 0.10; // Start low!
+      splashAudio.loop = true;
+      splashAudio.play().catch(() => {});
+      splash.style.animation = 'fadeOut 1.2s forwards';
+      setTimeout(() => {
+        splash.style.display = 'none';
+        mainContent.classList.add('visible');
+        typeBirthdayMessage();
+      }, 1300);
+      splashForm.querySelectorAll('input,button').forEach(el => el.disabled = true);
+    }
+
+    // Typing animation for message with pauses and slower speed
+    const paragraphs = [
+      "Today, the world spins a little brighter because it’s the day you came into it. I may have tried to call dibs on your heart once, and while that ship didn’t sail, I’ve never stopped rooting for you.",
+      "You are strong, intelligent, and filled with a light that deserves to be seen. I want nothing more than to see you happy, successful, and surrounded by the love and wins you deserve.",
+      "So here’s a little surprise because amazing people deserve more moments that remind them how valued they are.",
+      "Hit the button when you’re ready. This one’s from me, to you. 🎹💛"
+    ];
+
+    function typeBirthdayMessage() {
+      let pIndex = 0;
+      messageBody.innerHTML = "";
+      function typeParagraph() {
+        if (pIndex >= paragraphs.length) {
+          document.getElementById('reveal-btn').style.display = '';
+          return;
+        }
+        let text = paragraphs[pIndex];
+        let i = 0;
+        let para = document.createElement('p');
+        messageBody.appendChild(para);
+        let cursor = document.createElement('span');
+        cursor.className = 'typing-cursor';
+        cursor.textContent = '|';
+        para.appendChild(cursor);
+
+        function typeChar() {
+          if (i < text.length) {
+            para.insertBefore(document.createTextNode(text[i]), cursor);
+            let char = text[i];
+            i++;
+            let delay = 48 + Math.random()*50; // even slower base speed
+
+            // Longer pause on comma and ellipsis
+            if (char === ',') delay += 220;
+            // Pause longer at full stops, question/exclamation
+            if (char === '.' || char === '!' || char === '?') delay += 350;
+            // Pause a little on em dash or semicolon
+            if (char === ';' || char === '—') delay += 120;
+
+            setTimeout(typeChar, delay);
+          } else {
+            para.removeChild(cursor);
+            pIndex++;
+            setTimeout(typeParagraph, 500);
+          }
+        }
+        typeChar();
+      }
+      typeParagraph();
+    }
+
+    // Gas-molecule-like Heart Animation
+    function createHeart(side) {
+      const container = document.getElementById('heart-container');
+      const heart = document.createElement('div');
+      heart.classList.add('heart');
+      // Randomize initial vertical position (bottom 0-50px)
+      heart.style.bottom = (10 + Math.random() * 35) + 'px';
+      heart.style.width = heart.style.height = (24 + Math.random() * 12) + 'px';
+      // Randomize duration and path
+      const duration = 2200 + Math.random() * 700; // ms
+
+      // For left and right, position at left/right edge, but randomize initial offset
+      let startX, endX;
+      if (side === "left") {
+        startX = 32 + Math.random() * 10; // px from left
+        endX = 70 + Math.random() * 100;  // px from left
+        heart.style.left = startX + "px";
+      } else {
+        startX = 32 + Math.random() * 10;
+        endX = 70 + Math.random() * 100;
+        heart.style.right = startX + "px";
+      }
+      // Randomize slight rotation and scale
+      const startAngle = (side === "left" ? -10 : 10) + Math.random() * 14 - 7;
+      const endAngle = (side === "left" ? 30 : -30) + Math.random() * 20 - 10;
+      const startScale = 1;
+      const endScale = 1.3 + Math.random() * 0.5;
+      // Random "wiggle" offset for molecule effect (px)
+      const wiggleX = (Math.random() - 0.5) * 60;
+      const wiggleY = 40 + Math.random() * 40;
+
+      // Animate with JS using requestAnimationFrame
+      const start = performance.now();
+      function animateHeart(now) {
+        const elapsed = now - start;
+        const progress = Math.min(elapsed / duration, 1);
+
+        // Upward movement (bottom to top)
+        const y = progress * (window.innerHeight * 0.7 + wiggleY);
+
+        // Sideways, not straight: add a little curve/wiggle
+        let x;
+        if (side === "left") {
+          x = startX + (endX - startX) * progress + Math.sin(progress * Math.PI * 2) * wiggleX;
+          heart.style.left = x + "px";
+        } else {
+          x = startX + (endX - startX) * progress + Math.sin(progress * Math.PI * 2 + Math.PI) * wiggleX;
+          heart.style.right = x + "px";
+        }
+
+        // Apply transform
+        const angle = startAngle + (endAngle - startAngle) * progress;
+        const scale = startScale + (endScale - startScale) * progress;
+        heart.style.transform = `translateY(-${y}px) scale(${scale}) rotate(${angle}deg)`;
+        heart.style.opacity = (1 - progress) * 0.9;
+
+        if (progress < 1) {
+          requestAnimationFrame(animateHeart);
+        } else {
+          heart.remove();
+        }
+      }
+      requestAnimationFrame(animateHeart);
+      container.appendChild(heart);
+    }
+
+    let heartIntervalStarted = false;
+    function startHearts() {
+      if (heartIntervalStarted) return;
+      heartIntervalStarted = true;
+      let count = 0;
+      const interval = setInterval(() => {
+        if (birthdayVideo.paused || birthdayVideo.ended) {
+          clearInterval(interval);
+        } else {
+          if (Math.random() > 0.7) {
+            createHeart("left");
+            createHeart("right");
+            if (Math.random() > 0.6) createHeart(Math.random() > 0.5 ? "left" : "right");
+          } else {
+            createHeart(count % 2 === 0 ? "left" : "right");
+          }
+          count++;
+        }
+      }, 180);
+    }
+    birthdayVideo.addEventListener('timeupdate', () => {
+      if (!heartIntervalStarted && birthdayVideo.duration - birthdayVideo.currentTime <= 10) {
+        startHearts();
+      }
+    });
+    birthdayVideo.addEventListener('seeked', () => {
+      if (birthdayVideo.currentTime < birthdayVideo.duration - 10) {
+        heartIntervalStarted = false;
+      }
+    });
+    birthdayVideo.addEventListener('ended', () => {
+      heartIntervalStarted = false;
+    });
+
+    // Video popup audio control
+    revealBtn.addEventListener('click', () => {
+      popupOverlay.style.display = 'flex';
+      videoPopup.style.display = 'flex';
+      birthdayVideo.play().catch(() => {});
+      fadeAudioTo(0, 700);
+    });
+
+    // When video closes or ends, fade audio back in, auto-close popup on end
+    function resumeAudioAfterVideo() {
+      audioShouldPlay = true;
+      if (splashAudio.paused) splashAudio.play().catch(() => {});
+      fadeAudioTo(0.10, 800);
+      // Auto close popup
+      popupOverlay.style.display = 'none';
+      videoPopup.style.display = 'none';
+    }
+    closePopup.addEventListener('click', () => {
+      birthdayVideo.pause();
+      popupOverlay.style.display = 'none';
+      videoPopup.style.display = 'none';
+      resumeAudioAfterVideo();
+    });
+    birthdayVideo.addEventListener('ended', resumeAudioAfterVideo);
+    birthdayVideo.addEventListener('click', () => {
+      if (birthdayVideo.paused) birthdayVideo.play();
+      else birthdayVideo.pause();
+    });
+
+    // Comments popup timing during video
+    birthdayVideo.addEventListener('timeupdate', () => {
+      const commentBox = document.getElementById('video-comment');
+      const commentBox1 = document.getElementById('video-comment1');
+      if (birthdayVideo.currentTime >= 13 && birthdayVideo.currentTime < 19) {
+        commentBox.style.display = 'block';
+      } else {
+        commentBox.style.display = 'none';
+      }
+      if (birthdayVideo.currentTime >= 21 && birthdayVideo.currentTime < 25) {
+        commentBox1.style.display = 'block';
+      } else {
+        commentBox1.style.display = 'none';
+      }
+    });
+  </script>
+</body>
+</html>
