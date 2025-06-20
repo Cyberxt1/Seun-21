@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -7,8 +8,14 @@
   <link rel="icon" type="image/png" href="https://cdn-icons-png.flaticon.com/512/869/869869.png">
   <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@600;700&display=swap" rel="stylesheet">
   <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    html, body {
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
       font-family: 'Quicksand', sans-serif;
       background: linear-gradient(135deg, #828b4f, #046b79, rgb(151, 145, 145));
       color: #ffffff;
@@ -17,6 +24,7 @@
       position: relative;
       min-height: 100vh;
     }
+
     #heart-container {
       position: fixed;
       left: 0;
@@ -26,6 +34,7 @@
       pointer-events: none;
       z-index: 999;
     }
+
     .heart {
       position: absolute;
       width: 28px;
@@ -36,6 +45,7 @@
       pointer-events: none;
       will-change: transform, opacity;
     }
+
     .confetti {
       position: fixed;
       width: 10px;
@@ -43,6 +53,50 @@
       z-index: 2000;
       pointer-events: none;
     }
+
+    /* COUNTDOWN SPLASH */
+    #countdown-splash {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: linear-gradient(135deg, #ffd5ec, #c3f8ff);
+      z-index: 10000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      animation: fadeIn 1.5s ease forwards;
+      transition: opacity 1.3s;
+    }
+
+    #countdown-inner {
+      background: rgba(255, 255, 255, 0.97);
+      border-radius: 22px;
+      box-shadow: 0 10px 54px 0 #0002;
+      padding: 2.5rem 2.3rem 2.2rem 2.3rem;
+      text-align: center;
+      min-width: 300px;
+      max-width: 90vw;
+      animation: popIn 1.6s cubic-bezier(.25, 1.7, .5, .8);
+    }
+
+    #countdown-inner h2 {
+      font-size: 2rem;
+      color: #5f2c82;
+      margin-bottom: 0.7em;
+      letter-spacing: 1px;
+    }
+
+    #countdown-timer {
+      font-size: 2.1rem;
+      color: #b88700;
+      font-family: 'Quicksand', monospace;
+      font-weight: 700;
+      margin-bottom: 0.5em;
+      letter-spacing: 2px;
+    }
+
     #splash {
       position: fixed;
       top: 0;
@@ -57,46 +111,69 @@
       animation: fadeIn 1.5s ease forwards;
       transition: opacity 1.3s;
     }
+
     #splash-inner {
-      background: rgba(255,255,255,0.97);
+      background: rgba(255, 255, 255, 0.97);
       border-radius: 22px;
       box-shadow: 0 10px 54px 0 #0002;
       padding: 2.5rem 2.3rem 2.2rem 2.3rem;
       text-align: center;
-      min-width: 300px; max-width: 90vw;
-      animation: popIn 1.6s cubic-bezier(.25,1.7,.5,.8);
+      min-width: 300px;
+      max-width: 90vw;
+      animation: popIn 1.6s cubic-bezier(.25, 1.7, .5, .8);
     }
+
     #splash h2 {
       font-size: 2rem;
       color: #5f2c82;
       margin-bottom: 0.7em;
       letter-spacing: 1px;
     }
+
     .splash-form label {
-      font-weight: bold; color: #5f2c82;
-      margin: 1.3em 0 0.22em 0; text-align: left; display: block;
+      font-weight: bold;
+      color: #5f2c82;
+      margin: 1.3em 0 0.22em 0;
+      text-align: left;
+      display: block;
     }
+
     .splash-form input {
-      width: 100%; font-size: 1.1rem; border-radius: 9px;
-      padding: 0.55em 0.7em; outline: none;
+      width: 100%;
+      font-size: 1.1rem;
+      border-radius: 9px;
+      padding: 0.55em 0.7em;
+      outline: none;
       border: 1.5px solid #b88700;
       background: #f9f6e4;
       margin-bottom: 0.1em;
       transition: border 0.2s;
       text-transform: none !important;
     }
-    .splash-form input:focus { border-color: #5f2c82; }
+
+    .splash-form input:focus {
+      border-color: #5f2c82;
+    }
+
     .splash-form button {
-      margin-top: 1.5em; font-size: 1.1rem;
-      background: linear-gradient(90deg,#b88700,#5f2c82 80%);
-      color: #fff; border:none; padding:0.7em 2em;
-      border-radius: 20px; cursor:pointer;
+      margin-top: 1.5em;
+      font-size: 1.1rem;
+      background: linear-gradient(90deg, #b88700, #5f2c82 80%);
+      color: #fff;
+      border: none;
+      padding: 0.7em 2em;
+      border-radius: 20px;
+      cursor: pointer;
       box-shadow: 0 2px 10px #0001;
       font-weight: 700;
       letter-spacing: 1px;
       transition: background 0.2s;
     }
-    .splash-form button:hover { background:linear-gradient(90deg,#5f2c82 10%,#b88700 90%);}
+
+    .splash-form button:hover {
+      background: linear-gradient(90deg, #5f2c82 10%, #b88700 90%);
+    }
+
     .splash-error {
       color: #d92c2c;
       margin-top: 1.2em;
@@ -105,12 +182,13 @@
       min-height: 1.5em;
       letter-spacing: 0.5px;
     }
+
     #main-content {
       max-width: 700px;
       margin: 0 auto;
       margin-top: 6.5rem;
       padding: 2.8rem 2rem 2rem 2rem;
-      background: rgba(0,0,0,0.16);
+      background: rgba(0, 0, 0, 0.16);
       border-radius: 32px;
       box-shadow: 0 8px 48px #0002, 0 2px 12px #5f2c8220;
       text-align: center;
@@ -120,7 +198,11 @@
       z-index: 1;
       min-height: 440px;
     }
-    #main-content.visible { opacity: 1; }
+
+    #main-content.visible {
+      opacity: 1;
+    }
+
     #main-content h1 {
       font-size: 2rem;
       color: #b88700;
@@ -128,8 +210,12 @@
       letter-spacing: 1.2px;
       text-shadow: 0 2px 0 #fff4, 0 6px 18px #b8870055;
     }
+
     #message-body {
       margin-bottom: 2rem;
+      height: 200px;
+      max-height: 200px;
+      overflow-y: auto;
       min-height: 160px;
       font-size: 1.13rem;
       color: #fff;
@@ -137,7 +223,10 @@
       line-height: 1.7;
       font-family: 'Quicksand', sans-serif;
       white-space: pre-line;
+      background: transparent;
+      /* You can adjust the height as needed */
     }
+
     .typing-cursor {
       display: inline-block;
       width: 16px;
@@ -145,10 +234,19 @@
       animation: blink 1s steps(1) infinite;
       font-weight: bold;
     }
+
     @keyframes blink {
-      0%, 100% { opacity: 1;}
-      50% { opacity: 0;}
+
+      0%,
+      100% {
+        opacity: 1;
+      }
+
+      50% {
+        opacity: 0;
+      }
     }
+
     #reveal-btn {
       margin-top: 1.5rem;
       background: #b88700;
@@ -162,9 +260,11 @@
       cursor: pointer;
       transition: background 0.3s;
     }
+
     #reveal-btn:hover {
       background: #b48605c7;
     }
+
     #popup-overlay {
       position: fixed;
       top: 0;
@@ -177,6 +277,7 @@
       justify-content: center;
       z-index: 10000;
     }
+
     #video-popup {
       background: white;
       border-radius: 15px;
@@ -190,6 +291,7 @@
       position: relative;
       overflow: hidden;
     }
+
     #birthday-video {
       width: 100%;
       height: 100%;
@@ -198,6 +300,7 @@
       background: black;
       z-index: 1;
     }
+
     #close-popup {
       position: absolute;
       top: 10px;
@@ -213,6 +316,7 @@
       cursor: pointer;
       z-index: 10001;
     }
+
     .comment-popup {
       position: absolute;
       top: 10%;
@@ -228,36 +332,78 @@
       animation: fadeCommentIn 1s ease forwards;
       display: none;
     }
+
     .firework {
       position: fixed;
       pointer-events: none;
       z-index: 16000;
-      top: 0; left: 0;
-      width: 100vw; height: 100vh;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
       overflow: visible;
       pointer-events: none;
     }
+
     @keyframes fadeCommentIn {
-      0% { opacity: 0; transform: translateY(-20px);}
-      100% { opacity: 1; transform: translateY(0);}
+      0% {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
+
     @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
+      from {
+        opacity: 0;
+      }
+
+      to {
+        opacity: 1;
+      }
     }
+
     @keyframes fadeOut {
-      from { opacity: 1; }
-      to { opacity: 0; }
+      from {
+        opacity: 1;
+      }
+
+      to {
+        opacity: 0;
+      }
     }
+
     @keyframes popIn {
-      from { transform: scale(0.8); opacity: 0; }
-      to { transform: scale(1); opacity: 1; }
+      from {
+        transform: scale(0.8);
+        opacity: 0;
+      }
+
+      to {
+        transform: scale(1);
+        opacity: 1;
+      }
     }
   </style>
 </head>
+
 <body>
   <div id="heart-container"></div>
   <div class="firework" id="firework-canvas"></div>
+
+  <!-- COUNTDOWN SPLASH SCREEN -->
+  <div id="countdown-splash">
+    <div id="countdown-inner">
+      <h2>Countdown to Your Day 🎂</h2>
+      <div id="countdown-timer">00:00:00:00</div>
+      <div style="color:#5f2c82;font-size:1.1rem;">We're almost there! 🎉</div>
+    </div>
+  </div>
+
   <div id="splash">
     <div id="splash-inner">
       <h2>It's your day again... after a whole year 🎉</h2>
@@ -267,7 +413,7 @@
         <label for="dob">Date of Birth</label>
         <input type="date" id="dob" name="dob" required autocomplete="off" />
         <label for="age">How old today?</label>
-        <input type="number" id="age" name="age" min="1" max="150" required autocomplete="off" placeholder="e.g., 22"/>
+        <input type="number" id="age" name="age" min="1" max="150" required autocomplete="off" placeholder="e.g., 22" />
         <button type="submit">Start</button>
         <div class="splash-error" id="splash-error"></div>
       </form>
@@ -295,6 +441,46 @@
     </div>
   </div>
   <script>
+    // COUNTDOWN SPLASH LOGIC
+    const countdownSplash = document.getElementById('countdown-splash');
+    const countdownTimer = document.getElementById('countdown-timer');
+    const splash = document.getElementById('splash');
+    // Set countdown target to June 21 of the current year (or next year if already passed)
+    function getNextBirthdayDate() {
+      const now = new Date();
+      let target = new Date(now.getFullYear(), 5, 21, 0, 0, 0, 0); // Month is 0-indexed: 5 = June
+      if (now > target) target = new Date(now.getFullYear() + 1, 5, 21, 0, 0, 0, 0);
+      return target;
+    }
+    function updateCountdown() {
+      const now = new Date();
+      const target = getNextBirthdayDate();
+      let diff = target - now;
+      if (diff < 0) diff = 0;
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+      const mins = Math.floor((diff / (1000 * 60)) % 60);
+      const secs = Math.floor((diff / 1000) % 60);
+      countdownTimer.textContent =
+        (days < 10 ? "0" : "") + days + ":" +
+        (hours < 10 ? "0" : "") + hours + ":" +
+        (mins < 10 ? "0" : "") + mins + ":" +
+        (secs < 10 ? "0" : "") + secs;
+      // If today is June 21, hide the countdown and show splash
+      if (diff <= 0 || (target.getDate() === now.getDate() && target.getMonth() === now.getMonth())) {
+        countdownSplash.style.animation = 'fadeOut 1.2s forwards';
+        setTimeout(() => {
+          countdownSplash.style.display = 'none';
+          splash.style.display = 'flex';
+        }, 1200);
+        clearInterval(countdownInterval);
+      }
+    }
+    // Start with splash hidden, only show after countdown
+    splash.style.display = 'none';
+    updateCountdown();
+    const countdownInterval = setInterval(updateCountdown, 1000);
+
     // Accept either "Victoria" or "Oluwaseun" as name (case-insensitive)
     const CELEBRANT_NAMES = ["victoria", "oluwaseun"];
     const CELEBRANT_DOB = "2004-06-21";
@@ -305,7 +491,6 @@
     function sameDate(val1, val2) {
       return val1 === val2;
     }
-    const splash = document.getElementById('splash');
     const splashForm = document.getElementById('splash-form');
     const splashError = document.getElementById('splash-error');
     const mainContent = document.getElementById('main-content');
@@ -329,7 +514,7 @@
       return colors[Math.floor(Math.random() * colors.length)];
     }
     function throwConfettiBurst(times = 70) {
-      for(let i=0; i<times; i++) {
+      for (let i = 0; i < times; i++) {
         setTimeout(() => launchConfettiPiece(), Math.random() * 1200 + 120);
       }
     }
@@ -339,16 +524,16 @@
       div.style.left = (5 + Math.random() * 90) + "vw";
       div.style.top = "-30px";
       div.style.background = randomColor();
-      div.style.borderRadius = `${Math.random()>0.5?6:100}% 100% 60% 60%`;
+      div.style.borderRadius = `${Math.random() > 0.5 ? 6 : 100}% 100% 60% 60%`;
       div.style.transform = `rotate(${Math.random() * 360}deg)`;
-      div.style.opacity = 0.7 + Math.random()*0.3;
+      div.style.opacity = 0.7 + Math.random() * 0.3;
       div.style.zIndex = 2000;
       div.style.transition = "top 1.7s cubic-bezier(.3,1.1,.6,1),opacity 0.8s";
       document.body.appendChild(div);
       setTimeout(() => {
         div.style.top = (60 + Math.random() * 30) + "vh";
         div.style.opacity = 0;
-      }, 25 + Math.random()*110);
+      }, 25 + Math.random() * 110);
       setTimeout(() => div.remove(), 2000);
     }
     function launchFirework(cx = null, cy = null) {
@@ -358,17 +543,17 @@
       svg.setAttribute("width", "160");
       svg.setAttribute("height", "160");
       svg.style.position = "absolute";
-      svg.style.left = (cx !== null ? cx : Math.random()*window.innerWidth-80) + "px";
-      svg.style.top = (cy !== null ? cy : (window.innerHeight*0.25 + Math.random()*window.innerHeight*0.5 - 80)) + "px";
+      svg.style.left = (cx !== null ? cx : Math.random() * window.innerWidth - 80) + "px";
+      svg.style.top = (cy !== null ? cy : (window.innerHeight * 0.25 + Math.random() * window.innerHeight * 0.5 - 80)) + "px";
       svg.style.pointerEvents = "none";
-      for(let i=0;i<14;i++) {
+      for (let i = 0; i < 14; i++) {
         const l = document.createElementNS("http://www.w3.org/2000/svg", "line");
-        l.setAttribute("x1",80); l.setAttribute("y1",80);
-        const angle = (i/14)*2*Math.PI;
-        l.setAttribute("x2", 80+Math.cos(angle)*60);
-        l.setAttribute("y2", 80+Math.sin(angle)*60);
+        l.setAttribute("x1", 80); l.setAttribute("y1", 80);
+        const angle = (i / 14) * 2 * Math.PI;
+        l.setAttribute("x2", 80 + Math.cos(angle) * 60);
+        l.setAttribute("y2", 80 + Math.sin(angle) * 60);
         l.setAttribute("stroke", randomColor());
-        l.setAttribute("stroke-width", Math.random()*3+1.5);
+        l.setAttribute("stroke-width", Math.random() * 3 + 1.5);
         svg.appendChild(l);
       }
       svg.style.opacity = 1;
@@ -380,7 +565,7 @@
       setTimeout(() => svg.remove(), 1100);
     }
 
-    splashForm.addEventListener('submit', function(e) {
+    splashForm.addEventListener('submit', function (e) {
       e.preventDefault();
       splashError.textContent = "";
       const name = normalizeName(splashForm.name.value);
@@ -396,7 +581,7 @@
         splashError.textContent = "Are you sure you're the celebrant? 😉 Try again!";
       }
     });
-    splashForm.addEventListener('keyup', function(e){
+    splashForm.addEventListener('keyup', function (e) {
       if (e.key === "Enter") splashForm.dispatchEvent(new Event('submit'));
     });
     function fadeAudioTo(target, duration = 700) {
@@ -406,14 +591,14 @@
       if (diff === 0) return;
       const steps = 18;
       let i = 0;
-      const interval = duration/steps;
-      const stepSize = diff/steps;
+      const interval = duration / steps;
+      const stepSize = diff / steps;
       function doStep() {
         splashAudio.volume = +(splashAudio.volume + stepSize).toFixed(3);
         i++;
         if ((stepSize > 0 && splashAudio.volume >= target) ||
-            (stepSize < 0 && splashAudio.volume <= target) ||
-            i >= steps) {
+          (stepSize < 0 && splashAudio.volume <= target) ||
+          i >= steps) {
           splashAudio.volume = target;
           return;
         }
@@ -426,7 +611,7 @@
       splashAudio.volume = 0.10; // Start low!
       splashAudio.loop = true;
       splashAudio.muted = false;
-      splashAudio.play().catch(() => {});
+      splashAudio.play().catch(() => { });
       splash.style.animation = 'fadeOut 1.2s forwards';
       setTimeout(() => {
         splash.style.display = 'none';
@@ -438,9 +623,11 @@
 
     // Typing animation for message with pauses and slower speed
     const paragraphs = [
-      "Today, the world spins a little brighter because it’s the day you came into it. I may have tried to call dibs on your heart once, and while that ship didn’t sail, I’ve never stopped rooting for you.",
+      "Today, the world spins a little brighter because it’s the day you came into it. I remember the first day I met you at the library, I really don't know why I talked to you then, probably cause I was looking for a chemistry pro😂, I'm glad I did, and It's been great knowing you ever since.",
+      "You are a good person Seun, and you've been nothing short of someone who wants the best for others around them",
       "You are strong, intelligent, and filled with a light that deserves to be seen. I want nothing more than to see you happy, successful, and surrounded by the love and wins you deserve.",
-      "So here’s a little surprise because amazing people deserve more moments that remind them how valued they are.",
+      "As you celebrate another year of life, I pray that you continue to grow, learn, and embrace all the opportunities that come your way. May this year bring you closer to your dreams and fill your heart with joy. In Jesus Name🙏",
+      "So here’s a little surprise because great people deserve more moments that remind them how valued they are.",
       "Hit the button when you’re ready. This one’s from me, to you. 🎹💛"
     ];
     function typeBirthdayMessage() {
@@ -464,10 +651,12 @@
             para.insertBefore(document.createTextNode(text[i]), cursor);
             let char = text[i];
             i++;
-            let delay = 48 + Math.random()*50;
+            let delay = 48 + Math.random() * 50;
             if (char === ',') delay += 220;
             if (char === '.' || char === '!' || char === '?') delay += 350;
             if (char === ';' || char === '—') delay += 120;
+            // AUTO-SCROLL TO BOTTOM AFTER EACH CHAR
+            messageBody.scrollTop = messageBody.scrollHeight;
             setTimeout(typeChar, delay);
           } else {
             para.removeChild(cursor);
@@ -549,7 +738,7 @@
     revealBtn.addEventListener('click', () => {
       popupOverlay.style.display = 'flex';
       videoPopup.style.display = 'flex';
-      birthdayVideo.play().catch(() => {});
+      birthdayVideo.play().catch(() => { });
       fadeAudioTo(0, 700);
 
       // Only add listener once
@@ -560,7 +749,7 @@
               startHearts();
               heartsStarted = true;
               throwConfettiBurst(60);
-              for(let i=0;i<3;i++) setTimeout(()=>launchFirework(), 100+i*300);
+              for (let i = 0; i < 3; i++) setTimeout(() => launchFirework(), 100 + i * 300);
             }
             birthdayVideo.removeEventListener('timeupdate', tryStartHearts);
           }
@@ -571,14 +760,14 @@
 
     function resumeAudioAfterVideo() {
       audioShouldPlay = true;
-      if (splashAudio.paused) splashAudio.play().catch(() => {});
+      if (splashAudio.paused) splashAudio.play().catch(() => { });
       fadeAudioTo(0.10, 800);
       popupOverlay.style.display = 'none';
       videoPopup.style.display = 'none';
       setTimeout(() => {
         // Celebrate again after video closes
         throwConfettiBurst(40);
-        for(let i=0;i<2;i++) setTimeout(()=>launchFirework(), 200+i*200);
+        for (let i = 0; i < 2; i++) setTimeout(() => launchFirework(), 200 + i * 200);
       }, 500);
     }
     closePopup.addEventListener('click', () => {
@@ -608,4 +797,5 @@
     });
   </script>
 </body>
+
 </html>
